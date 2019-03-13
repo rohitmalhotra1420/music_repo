@@ -5,27 +5,28 @@ class TrendingTrackModal extends Component {
   state = {
     loading: false,
     error: false,
-    trackData: null
+    trackData: null,
+    errorMessage:null
   };
   componentDidMount() {
     this.setState({ loading: true });
     getTrackInfo(this.props.trackId)
       .then(response => {
+       console.log(response);
         if (response && response.track) {
-          console.log(response);
           this.setState({ trackData: response.track, loading: false });
         } else {
-          this.setState({ error: true, loading: false });
+          this.setState({ error: true, loading: false ,errorMessage:response.message});
         }
       })
       .catch(error => {
-        this.setState({ error: true, loading: false });
+        this.setState({ error: true, loading: false ,errorMessage:"Error Loading Data"});
         console.log(error);
       });
   }
   render() {
     const { closeModal, showModal, trackImage } = this.props;
-    const { trackData, loading, error } = this.state;
+    const { trackData, loading, error,errorMessage } = this.state;
     const showHideClassName = showModal
       ? "modal display-block"
       : "modal display-none";
@@ -34,7 +35,7 @@ class TrendingTrackModal extends Component {
       <div className={showHideClassName}>
         <section className="modal-main">
           {loading && <div className="centered-text">Loading...</div>}
-          {error && <div className="centered-text">Error Loading Data</div>}
+          {error && <div className="centered-text">{errorMessage}</div>}
           {trackData !== null && (
             <div>
               <div className="modal-data-view">

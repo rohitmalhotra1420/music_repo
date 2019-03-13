@@ -13,7 +13,7 @@ class SelectComponent extends Component {
   };
   render() {
     return (
-      <div style={{ textAlign: "center", marginTop: "4%" }}>
+      <div style={{ textAlign: "center" }}>
         <form onSubmit={this.handleSubmit}>
           <select value={this.state.value} onChange={this.handleChange}>
             <option value="india">India</option>

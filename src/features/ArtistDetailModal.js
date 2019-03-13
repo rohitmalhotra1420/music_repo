@@ -5,7 +5,8 @@ class ArtistDetailModal extends Component {
   state = {
     loading: false,
     error: false,
-    artistData: null
+    artistData: null,
+    errorMessage:null
   };
   componentDidMount() {
     this.setState({ loading: true });
@@ -13,19 +14,19 @@ class ArtistDetailModal extends Component {
       .then(response => {
         if (response && response.artist) {
           console.log(response);
-          this.setState({ artistData: response.artist, loading: false });
+          this.setState({ artistData: response.artist, loading: false});
         } else {
-          this.setState({ error: true, loading: false });
+          this.setState({ error: true, loading: false ,errorMessage:"Artist not found"});
         }
       })
       .catch(error => {
-        this.setState({ error: true, loading: false });
+        this.setState({ error: true, loading: false ,errorMessage:"Error Loading Data"});
         console.log(error);
       });
   }
   render() {
     const { showArtistModal, closeArtistModal } = this.props;
-    const { artistData, loading, error } = this.state;
+    const { artistData, loading, error,errorMessage } = this.state;
     const showHideClassName = showArtistModal
       ? "modal display-block"
       : "modal display-none";
@@ -34,7 +35,7 @@ class ArtistDetailModal extends Component {
       <div className={showHideClassName}>
         <section className="modal-main">
           {loading && <div className="centered-text">Loading...</div>}
-          {error && <div className="centered-text">Error Loading Data</div>}
+          {error && <div className="centered-text">{errorMessage}</div>}
           {artistData !== null && (
             <div>
               <div className="modal-data-view">
