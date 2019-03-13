@@ -1,8 +1,8 @@
 import React from "react";
 
-const TopHeader = () => (
+const TopHeader = ({countryName}) => (
   <div>
-    <h1 className="top-header">MUSIC REPO</h1>
+    <h1 className="top-header">TOP TRACKS IN {countryName.toUpperCase()}</h1>
   </div>
 );
 

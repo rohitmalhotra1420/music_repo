@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import TopHeader from "./TopHeader";
 
 class SelectComponent extends Component {
   state = {
@@ -13,6 +14,8 @@ class SelectComponent extends Component {
   };
   render() {
     return (
+	<div>
+	     <TopHeader countryName={this.state.value} />
       <div style={{ textAlign: "center" }}>
         <form onSubmit={this.handleSubmit}>
           <select value={this.state.value} onChange={this.handleChange}>
@@ -33,6 +36,8 @@ class SelectComponent extends Component {
           />
         </form>
       </div>
+	</div>
+
     );
   }
 }
