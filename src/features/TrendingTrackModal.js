@@ -6,27 +6,35 @@ class TrendingTrackModal extends Component {
     loading: false,
     error: false,
     trackData: null,
-    errorMessage:null
+    errorMessage: null
   };
   componentDidMount() {
     this.setState({ loading: true });
     getTrackInfo(this.props.trackId)
       .then(response => {
-       console.log(response);
+        console.log(response);
         if (response && response.track) {
           this.setState({ trackData: response.track, loading: false });
         } else {
-          this.setState({ error: true, loading: false ,errorMessage:response.message});
+          this.setState({
+            error: true,
+            loading: false,
+            errorMessage: response.message
+          });
         }
       })
       .catch(error => {
-        this.setState({ error: true, loading: false ,errorMessage:"Error Loading Data"});
+        this.setState({
+          error: true,
+          loading: false,
+          errorMessage: "Error Loading Data"
+        });
         console.log(error);
       });
   }
   render() {
     const { closeModal, showModal, trackImage } = this.props;
-    const { trackData, loading, error,errorMessage } = this.state;
+    const { trackData, loading, error, errorMessage } = this.state;
     const showHideClassName = showModal
       ? "modal display-block"
       : "modal display-none";
@@ -92,9 +100,8 @@ class TrendingTrackModal extends Component {
                 <p
                   className="questrial center"
                   style={{ padding: "0 15%", lineHeight: "25px" }}
-                >
-                  {trackData.wiki.summary}
-                </p>
+                  dangerouslySetInnerHTML={{ __html: trackData.wiki.summary }}
+                />
               </div>
             </div>
           )}

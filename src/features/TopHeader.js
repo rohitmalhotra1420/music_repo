@@ -1,8 +1,10 @@
 import React from "react";
 
-const TopHeader = ({countryName}) => (
+const TopHeader = ({ countryName }) => (
   <div>
-    <h1 className="top-header">TOP TRACKS IN {countryName.toUpperCase()}</h1>
+    <h1 className="top-header">
+      TOP TRACKS IN {countryName && countryName.toUpperCase()}
+    </h1>
   </div>
 );
 

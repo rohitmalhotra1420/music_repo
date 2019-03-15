@@ -13,7 +13,8 @@ class TrendingTrackList extends Component {
     showTrackModal: false,
     trackId: null,
     showArtistModal: false,
-    artistId: null
+    artistId: null,
+    countryName: "india"
   };
   componentDidMount() {
     this.fetchTracks();
@@ -25,7 +26,11 @@ class TrendingTrackList extends Component {
       .then(response => {
         console.log(response);
         if (response && response.tracks.track.length > 0) {
-          this.setState({ loading: false, tracks: response.tracks.track });
+          this.setState({
+            loading: false,
+            tracks: response.tracks.track,
+            countryName: country ? country : this.state.country
+          });
         } else {
           this.setState({ loading: false, error: true });
         }
@@ -63,7 +68,8 @@ class TrendingTrackList extends Component {
       error,
       trackImage,
       showArtistModal,
-      artistId
+      artistId,
+      countryName
     } = this.state;
 
     return (
@@ -72,6 +78,7 @@ class TrendingTrackList extends Component {
           onOptionChange={option => {
             this.fetchTracks(option);
           }}
+          countryName={countryName}
         />
         {loading && <div className="centered-text">Loading...</div>}
         {error && <div className="centered-text">Error Loading Data</div>}

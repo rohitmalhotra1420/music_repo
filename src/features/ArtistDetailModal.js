@@ -6,7 +6,7 @@ class ArtistDetailModal extends Component {
     loading: false,
     error: false,
     artistData: null,
-    errorMessage:null
+    errorMessage: null
   };
   componentDidMount() {
     this.setState({ loading: true });
@@ -14,19 +14,27 @@ class ArtistDetailModal extends Component {
       .then(response => {
         if (response && response.artist) {
           console.log(response);
-          this.setState({ artistData: response.artist, loading: false});
+          this.setState({ artistData: response.artist, loading: false });
         } else {
-          this.setState({ error: true, loading: false ,errorMessage:"Artist not found"});
+          this.setState({
+            error: true,
+            loading: false,
+            errorMessage: "Artist not found"
+          });
         }
       })
       .catch(error => {
-        this.setState({ error: true, loading: false ,errorMessage:"Error Loading Data"});
+        this.setState({
+          error: true,
+          loading: false,
+          errorMessage: "Error Loading Data"
+        });
         console.log(error);
       });
   }
   render() {
     const { showArtistModal, closeArtistModal } = this.props;
-    const { artistData, loading, error,errorMessage } = this.state;
+    const { artistData, loading, error, errorMessage } = this.state;
     const showHideClassName = showArtistModal
       ? "modal display-block"
       : "modal display-none";
@@ -105,9 +113,8 @@ class ArtistDetailModal extends Component {
               <p
                 className="questrial center"
                 style={{ padding: "0 15%", lineHeight: "25px" }}
-              >
-                {artistData.bio.summary}
-              </p>
+                dangerouslySetInnerHTML={{ __html: artistData.bio.summary }}
+              />
             </div>
           )}
           <div className="center">
